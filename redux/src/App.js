@@ -7,7 +7,7 @@ const User = () => {
     return <div>User: {contextValue.appState.user.name}</div>
 }
 
-//创建reducer函数，目的为了规范state值，避免对原state值进行直接修改
+//1.创建reducer函数，目的为了规范state值，避免对原state值进行直接修改
 const reducer = (state, {type, payload}) => {
     if (type == "updateUser") {
         return {
@@ -21,10 +21,17 @@ const reducer = (state, {type, payload}) => {
         return state
     }
 }
-const UserModifier = () => {
-    const {appState, setAppState} = useContext(appContext)
+//2.创建dispatch,规范setState流程
+const Wrapper = () => {
+    const {appState,setAppState} = useContext(appContext)
+    const dispatch = (action) => {
+        setAppState(reducer(appState,setAppState))
+    }
+    return <UserModifier dispatch = {dispatch} state = {appState}></UserModifier>
+}
+const UserModifier = ({dispatch,state}) => {
     const onChange = (e) => {
-        setAppState(reducer(appState, {type: 'updateUser', payload: {name: e.target.value}}))
+        dispatch(reducer(state, {type: 'updateUser', payload: {name: e.target.value}}))
     }
     return <div>
         <input value={appState.user.name} onChange={onChange}/>
