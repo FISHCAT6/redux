@@ -24,3 +24,4 @@ yarn-error.log*
 /.idea/modules.xml
 /.idea/redux.iml
 /.idea/vcs.xml
+/.idea/git_toolbox_prj.xml

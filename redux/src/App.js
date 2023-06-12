@@ -14,7 +14,7 @@ const reducer = (state, {type, payload}) => {
             ...state,
             user: {
                 ...state.user,
-                payload
+                ...payload
             }
         }
     } else {
@@ -23,18 +23,18 @@ const reducer = (state, {type, payload}) => {
 }
 //2.创建dispatch,规范setState流程
 const Wrapper = () => {
-    const {appState,setAppState} = useContext(appContext)
+    const {appState, setAppState} = useContext(appContext)
     const dispatch = (action) => {
-        setAppState(reducer(appState,setAppState))
+        setAppState(reducer(appState, action))
     }
-    return <UserModifier dispatch = {dispatch} state = {appState}></UserModifier>
+    return <UserModifier dispatch={dispatch} state={appState}></UserModifier>
 }
-const UserModifier = ({dispatch,state}) => {
+const UserModifier = ({dispatch, state}) => {
     const onChange = (e) => {
-        dispatch(reducer(state, {type: 'updateUser', payload: {name: e.target.value}}))
+        dispatch({type: "updateUser", payload: {name: e.target.value}})
     }
     return <div>
-        <input value={appState.user.name} onChange={onChange}/>
+        <input value={state.user.name} onChange={onChange}/>
     </div>
 }
 const One = () => <div
@@ -44,7 +44,7 @@ const One = () => <div
 
 const Two = () => <div
     style={{width: "800px", height: "100px", margin: "20px auto", backgroundColor: "lightblue", borderRadius: "20px"}}>
-    <section style={{textAlign: "center", fontSize: "30px"}}>二级展示<UserModifier/></section>
+    <section style={{textAlign: "center", fontSize: "30px"}}>二级展示<Wrapper/></section>
 </div>
 
 const Three = () => <div

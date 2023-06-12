@@ -1,2 +1,9 @@
-# 手写redux
+# 手写redux库
 
+## 1.手写reducer
+
+reducer初衷：解决state更改时对原state状态的破坏。reducer函数中形参state为需要更改的初始state值，type为需要更改的类型，payload为更改的值。
+reducer内部通过对原state和更改值进行展开运算，进而合并需要更改的数据；最终返回一个新的对象，避免的了对组件初始state值的更改。
+
+## 2.手写dispatch
+reducer初衷：解决频繁修改state时，多次调用重复代码及函数的问题。通过dispatch函数封装setXXX函数以及reducer函数。单独定义dispatch无法读取useState定义的状态值和更改函数（hooks只能在组件中读取使用），因此将dispatch封装在一个新的组件中，该组件包括hooks对应的值以及函数、dispatch函数以及需要状态管理的组件。
