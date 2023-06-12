@@ -16,11 +16,20 @@ const UserModifier = () => {
         <input value={contextValue.appState.user.name} onChange={onChange}/>
     </div>
 }
-const One = () => <section>One<User/></section>
+const One = () => <div
+    style={{width: "800px", height: "100px", margin: "20px auto", backgroundColor: "lightblue", borderRadius: "20px"}}>
+    <section style={{textAlign: "center", fontSize: "30px"}}>One<User/></section>
+</div>
 
-const Two = () => <section>Two<UserModifier/></section>
+const Two = () => <div
+    style={{width: "800px", height: "100px", margin: "20px auto", backgroundColor: "lightblue", borderRadius: "20px"}}>
+    <section style={{textAlign: "center", fontSize: "30px"}}>Two<UserModifier/></section>
+</div>
 
-const Three = () => <section>Three</section>
+const Three = () => <div
+    style={{width: "800px", height: "100px", margin: "20px auto", backgroundColor: "lightblue", borderRadius: "20px"}}>
+    <section style={{textAlign: "center", fontSize: "30px"}}>Three</section>
+</div>
 
 function App() {
     const [appState, setAppState] = useState({
