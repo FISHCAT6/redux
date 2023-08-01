@@ -1,5 +1,6 @@
-# 手写redux库
-项目描述：依托react框架，根据个人理解实现redux库功能以及示例展示。
+# 手写redux+react-redux库
+项目描述：依托react框架，根据个人理解实现redux+react-redux库功能以及示例展示。
+依托项：```React18.0```+```useContext```+```createContext```
 运行方式：`npm start`
 ## 1.手写reducer
 reducer初衷：解决state更改时对原state状态的破坏。reducer函数中形参state为需要更改的初始state值，type为需要更改的类型，payload为更改的值。
