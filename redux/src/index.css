@@ -1,0 +1,28 @@
+.One{
+    width: 800px;
+    height: 100px;
+    margin: 20px auto;
+    background-color: lightblue;
+    border-radius: 20px;
+}
+.bar{
+    text-align: center;
+    font-size: 30px
+}
+.Two{
+    width: 800px;
+    height: 100px;
+    margin: 20px auto;
+    background-color: lightblue;
+    border-radius: 20px;
+}
+.Three{
+    width: 800px;
+    height: 100px;
+    margin: 20px auto;
+    background-color: lightblue;
+    border-radius: 20px;
+}
+.input{
+    font-size: 30px
+}
