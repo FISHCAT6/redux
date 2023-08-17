@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import "./index.css"
-import {appContext, store, connect} from "./redux";
+import {appContext,Provider, connect, createStore} from "./redux";
 import {connectToUser} from "./connectors";
 
 //2.创建dispatch,规范setState流程
@@ -12,6 +12,29 @@ import {connectToUser} from "./connectors";
 //     return <UserModifier dispatch={dispatch} state={appState}></UserModifier>
 // }
 
+//1.创建reducer函数，目的为了规范state值，避免对原state值进行直接修改
+const reducer = (state, {type, payload}) => {
+    if (type == "updateUser") {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                ...payload
+            }
+        }
+    } else {
+        return state
+    }
+}
+
+//11.实现creatStore，创建initState
+const initState = {
+    user:{name:'frank',age:18},
+    group:{name:"前端组"}
+}
+
+//11.实现creatStore，创建完全体store
+const store = createStore(reducer,initState)
 
 //7.让connect后第一个括号中的实现的是selector功能，功能一：快速获取state中的值，比如user为{state.xxx.yyy.zzz.user.name}
 const User = connectToUser(({user, dispatch}) => {
@@ -19,13 +42,14 @@ const User = connectToUser(({user, dispatch}) => {
     return <div>User: {user.name}</div>
 })
 
-const _USerModifier = ({updateUser, state, children}) => {
+const _USerModifier = ({updateUser, user, children}) => {
     const onChange = (e) => {
-        updateUser( {name: e.target.value})//9.实现mapDispatchToProps
+        // dispatch({type:'updateUser',payload:{name:e.target.value}})
+        updateUser( {name: e.target.value})//9.实现mapDispatchToProps,将高频使用的type类型及数据对应的payload进行封装，节省开发成本
     }
     return <div>
         {children}
-        <input className="input" value={state.user.name} onChange={onChange}/>
+        <input className="input" value={user.name} onChange={onChange}/>
     </div>
 }
 
@@ -56,11 +80,12 @@ const Three = connect(state => {
 //总的父组件
 function App() {
     return (
-        <appContext.Provider value={store}>
+        //12.实现Provider
+        <Provider store={store}>
             <One></One>
             <Two></Two>
             <Three></Three>
-        </appContext.Provider>
+        </Provider>
     )
 }
 
