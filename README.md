@@ -8,7 +8,8 @@
 
 ## 0.整体架构图
 
-![Uploading 未命名文件(14).jpg…]()
+![未命名文件(14)](https://github.com/FISHCAT6/redux/assets/89964854/aaad54df-9230-4d66-94ca-8914cb581006)
+
 
 
 ## 1.手写reducer
