@@ -6,25 +6,29 @@ const appContext = createContext(null);
 //4.实现精准render
 //11.实现creatStore，创建非完全体store
 let state = undefined;
+let reducer = undefined;
+let listeners = [];
+const setState =  (newState) => {
+    //改变数据
+    state = newState
+    //遍历listeners数组中压入的update函数，触发更新
+    listeners.map(fn => fn())
+}
 const store = {
     getState(){
         return state
     },
-    reducer:undefined,
-    setState(newState) {
-        //改变数据
-        state = newState
-        //遍历listeners数组中压入的update函数，触发更新
-        store.listeners.map(fn => fn())
+    //定义dispatch
+    dispatch : (action) => {
+        setState(reducer(state, action))
     },
-    listeners: [],
     subscribe(fn) {
         //压入update函数
-        store.listeners.push(fn);
+        listeners.push(fn);
         //取消订阅
         return () => {
-            const index = store.listeners.indexOf(fn);
-            store.listeners.splice(index, 1);
+            const index = listeners.indexOf(fn);
+            listeners.splice(index, 1);
         }
     }
 }
@@ -41,9 +45,9 @@ const changed = (oldState, newState) => {
 }
 
 //11.实现creatStore,创建createStore
-export const createStore = (reducer,initState)=>{
+export const createStore = (_reducer,initState)=>{
     state = initState
-    store.reducer = reducer
+    reducer = _reducer
     return store
 }
 
@@ -52,14 +56,8 @@ export const createStore = (reducer,initState)=>{
 export const connect = (selector, mapDispatchToProps) => (Component) => {
     //这里因为下方定义的UserModifier被当作了组件标签使用，因此在向组件UserModifier传值的时候相当于传入到了下方的props中
     return (props) => {
-        //定义dispatch
-        const dispatch = (action) => {
-            setState(store.reducer(state, action))
-        }
         //9.实现mapDispatchToProps,实现对dispatch的加工：dispatcher
-        const dispatcher = mapDispatchToProps ? mapDispatchToProps(dispatch) : {dispatch}
-        //从store中解构赋值出来state和setState
-        const { setState} = useContext(appContext)
+        const dispatcher = mapDispatchToProps ? mapDispatchToProps(store.dispatch) : {dispatch:store.dispatch}
         //5.实现精准render,创建一个初始对象
         const [, update] = useState({})
         //7.让connect支持selector

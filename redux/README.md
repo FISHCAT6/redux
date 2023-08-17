@@ -1,6 +1,10 @@
 # 手写redux+react-redux库
 
-项目描述：依托react框架，根据个人理解实现redux+react-redux库功能以及示例展示。 依托项：`React18.0`+`useContext`+`createContext` 运行方式：`npm start`
+项目描述：依托react框架，根据个人理解实现redux+react-redux库功能以及示例展示。
+
+依托项：`React18.0`+`useContext`+`createContext`
+
+运行方式：`npm start`
 
 ## 1.手写reducer
 
@@ -94,5 +98,5 @@ const UserModifier = connect(_USerModifier)
 
 ## 8.封装Provider和createStore
 
-
+实现初衷
 
