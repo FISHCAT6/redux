@@ -1,6 +1,10 @@
 # 手写redux+react-redux库
 
-项目描述：依托react框架，根据个人理解实现redux+react-redux库功能以及示例展示。 依托项：`React18.0`+`useContext`+`createContext` 运行方式：`npm start`
+项目描述：依托react框架，根据个人理解实现redux+react-redux库功能以及示例展示。 
+
+依托项：`React18.0`+`useContext`+`createContext` 
+
+运行方式：`npm start`
 
 ## 1.手写reducer
 
@@ -86,7 +90,7 @@ const UserModifier = connect(_USerModifier)
 
 实现方法：在`useEffect`中进行订阅，增加`newState`作为从`store`中拿到的最新数据，同时增加`changed`方法作为新旧数据的比对。
 
-## 7.实现connect支持mapDispatchToProps
+## 7.现connect支持mapDispatchToProps
 
 实现初衷：`mapDispatchToProps`实现之前，如果有诸如`{type:AA,payload:{BB}}`的场景，若AA需要多次派发，则每次都需要写`{type:AA,payload:{BB}}`，增加了开发成本。
 
@@ -94,6 +98,26 @@ const UserModifier = connect(_USerModifier)
 
 ## 8.封装Provider和createStore
 
+实现初衷：`createStore`可以方便自定义`sotore`，向`store`中传入自定义的`reducer`和`state`.`Provider`实现简化的操作
+
+实现方法：
+
+```jsx
+export const createStore = (reducer,initState)=>{
+    state = initState
+    store.reducer = reducer
+    return store
+}
+export const Provider = ({store,children}) => {
+    return (
+        <appContext.Provider value={store}>
+            {children}
+        </appContext.Provider>
+    )
+}
+```
+
+## 9.支持异步action
 
 
 
