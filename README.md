@@ -1,8 +1,8 @@
-# 手写redux+react-redux库
+# 手写redux生态
 
-项目描述：依托react框架，根据个人理解实现redux+react-redux库功能以及示例展示。 
+项目描述：依托react框架，根据个人理解实现redux+react-redux+类react-thunk库功能以及示例展示。 
 
-依托项：`React18.0`+`useContext`+`createContext` 
+依托项：`React18.0` 
 
 运行方式：`npm start`
 
